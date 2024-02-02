@@ -1,19 +1,36 @@
-FROM alpine:3.17 as  pybuilder
-RUN apk add --no-cache musl-dev linux-headers g++ openssl-dev bzip2-dev python3-dev
+FROM debian:bookworm-slim as pybuilder
+
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libssl-dev \
+    libbz2-dev \
+    python3-dev \
+    python3-venv \
+    python3-pip \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN python3 -m venv /opt/venv && /opt/venv/bin/pip install --upgrade pip
-RUN /opt/venv/bin/python3 -m pip install omero-py
+RUN /opt/venv/bin/pip install omero-py
 
-FROM alpine:3.19 as unzip
-RUN apk add --no-cache unzip 
-RUN wget -O /tmp/bf2raw.zip https://github.com/glencoesoftware/bioformats2raw/releases/download/v0.9.1/bioformats2raw-0.9.1.zip
-RUN unzip /tmp/bf2raw.zip -d /tmp
-RUN wget -O /tmp/raw2ometiff.zip https://github.com/glencoesoftware/raw2ometiff/releases/download/v0.7.0/raw2ometiff-0.7.0.zip
-RUN unzip /tmp/raw2ometiff.zip -d /tmp
+FROM debian:bookworm-slim as unzip
+RUN apt-get update && apt-get install -y unzip curl && rm -rf /var/lib/apt/lists/*
 
-FROM alpine:3.19 as final
-RUN apk add --no-cache blosc python3
-COPY --from=pybuilder /opt/venv /opt
-COPY --from=unzip /tmp/bioformats2raw-0.9.1 /opt/bioformats2raw-0.9.1
-COPY --from=unzip /tmp/raw2ometiff-0.7.0 /opt/raw2ometiff-0.7.0
+RUN curl -Lo /tmp/bf2raw.zip https://github.com/glencoesoftware/bioformats2raw/releases/download/v0.9.1/bioformats2raw-0.9.1.zip && \
+    unzip /tmp/bf2raw.zip -d /opt && \
+    curl -Lo /tmp/raw2ometiff.zip https://github.com/glencoesoftware/raw2ometiff/releases/download/v0.7.0/raw2ometiff-0.7.0.zip && \
+    unzip /tmp/raw2ometiff.zip -d /opt
 
+FROM debian:bookworm-slim as final
+RUN apt-get update && apt-get install -y \
+    libblosc1 \
+    python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=pybuilder /opt/venv /opt/venv
+
+COPY --from=unzip /opt/bioformats2raw-0.9.1 /opt/bioformats2raw-0.9.1
+COPY --from=unzip /opt/raw2ometiff-0.7.0 /opt/raw2ometiff-0.7.0
+
+# Update PATH environment variable
 ENV PATH="/opt/venv/bin:/opt/bioformats2raw-0.9.1:/opt/raw2ometiff-0.7.0:${PATH}"
+ 
