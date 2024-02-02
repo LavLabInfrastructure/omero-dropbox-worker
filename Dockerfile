@@ -10,7 +10,7 @@ RUN mv /tmp/bioformats2raw-0.9.1/bin/* /usr/local/bin && mv -f /tmp/bioformats2r
 
 RUN curl -Lo /tmp/raw2ometiff.zip https://github.com/glencoesoftware/raw2ometiff/releases/download/v0.7.0/raw2ometiff-0.7.0.zip
 RUN unzip /tmp/raw2ometiff.zip -d /tmp
-RUN mv /tmp/raw2ometiff-0.7.0/bin/* /usr/local/bin && mv -f /tmp/raw2ometiff-0.7.0/lib/* /usr/local/lib
+RUN mv /tmp/raw2ometiff-0.7.0/bin/* /usr/local/bin && mv -f /tmp/raw2ometiff-0.7.0/lib/*.* /usr/local/lib && mv /tmp/raw2ometiff-0.7.0/lib/config/* /usr/local/lib/config
 
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm -rf /tmp/* 
