@@ -11,7 +11,7 @@ RUN curl -Lo /tmp/raw2ometiff.zip https://github.com/glencoesoftware/raw2ometiff
 RUN unzip /tmp/raw2ometiff.zip -d /tmp/bin
 
 RUN mv /tmp/bin/bioformats*/bin/* /tmp/bin/raw*/bin/* /usr/local/bin
-RUN mv /tmp/bin/bioformats*/lib/* /tmp/bin/raw*/lib/* /usr/local/lib
+RUN mv -f /tmp/bin/bioformats*/lib/* /tmp/bin/raw*/lib/* /usr/local/lib
 
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm -rf /tmp/* 
