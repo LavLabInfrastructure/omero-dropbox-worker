@@ -1,6 +1,6 @@
 FROM eclipse-temurin:8-jre-jammy
 
-RUN apt-get update && apt-get install -y libblosc1 python3 python3-pip python3-setuptools python3-wheel
+RUN apt-get update && apt-get install -y gzip libblosc1 python3 python3-pip python3-setuptools python3-wheel
 
 RUN pip3 install --no-cache-dir omero-py
 
