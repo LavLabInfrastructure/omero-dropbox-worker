@@ -1,12 +1,9 @@
-FROM debian:bookworm-slim as pybuilder
+FROM python3.10-bookworm as pybuilder
 
 RUN apt-get update && apt-get install -y \
     build-essential \
     libssl-dev \
-    libbz2-dev \
-    python3-dev \
-    python3-venv \
-    python3-pip \
+    libbz2-dev 
     && rm -rf /var/lib/apt/lists/*
 
 RUN python3 -m venv /opt/venv && /opt/venv/bin/pip install --upgrade pip
