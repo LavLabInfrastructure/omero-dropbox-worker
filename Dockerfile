@@ -1,4 +1,4 @@
-FROM python3.10-bookworm as pybuilder
+FROM python:3.10-bookworm as pybuilder
 
 RUN apt-get update && apt-get install -y \
     build-essential \
