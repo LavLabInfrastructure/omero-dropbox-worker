@@ -1,4 +1,4 @@
-FROM python:3.10-bookworm-slim as pybuilder
+FROM python:3.10-slim-bookworm as pybuilder
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 RUN python3 -m venv /opt/venv && /opt/venv/bin/pip install --upgrade pip
 RUN /opt/venv/bin/pip install omero-py
 
-FROM python:3.10-bookworm-slim as unzip
+FROM python:3.10-slim-bookworm as unzip
 RUN apt-get update && apt-get install -y unzip curl && rm -rf /var/lib/apt/lists/*
 
 RUN curl -Lo /tmp/bf2raw.zip https://github.com/glencoesoftware/bioformats2raw/releases/download/v0.9.1/bioformats2raw-0.9.1.zip && \
