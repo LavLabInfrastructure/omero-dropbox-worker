@@ -21,6 +21,7 @@ FROM debian:bookworm-slim as final
 RUN apt-get update && apt-get install -y \
     libblosc1 \
     python3 \
+    default-jre-headless \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=pybuilder /opt/venv /opt/venv
