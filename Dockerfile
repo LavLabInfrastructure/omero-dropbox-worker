@@ -22,8 +22,8 @@ RUN apt-get update && apt-get install -y \
     libblosc1 \
     python3 \
     default-jre-headless \
-    libssl \
-    libbz2 \
+    libssl3 \
+    libbz2-1.0 \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=pybuilder /opt/venv /opt/venv
