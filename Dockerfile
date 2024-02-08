@@ -30,4 +30,4 @@ COPY --from=unzip /opt/raw2ometiff-0.7.0 /opt/raw2ometiff-0.7.0
 
 # Update PATH environment variable
 ENV PATH="/opt/venv/bin:/opt/bioformats2raw-0.9.1:/opt/raw2ometiff-0.7.0:${PATH}"
- 
+ RUN echo 'export PATH="/opt/venv/bin:/opt/bioformats2raw-0.9.1:/opt/raw2ometiff-0.7.0:${PATH}"' >> /etc/bash.bashrc
