@@ -31,3 +31,4 @@ COPY --from=unzip /opt/raw2ometiff-0.7.0 /opt/raw2ometiff-0.7.0
 ENV PATH="/opt/venv/bin:/opt/bioformats2raw-0.9.1/bin:/opt/raw2ometiff-0.7.0/bin:${PATH}"
 ENV HOME=/tmp
 USER 1000
+RUN /bin/bash -c 'omero import -s "w" -p 4064 -u fake -w fake; exit 0'
