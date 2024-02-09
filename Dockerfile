@@ -29,4 +29,7 @@ COPY --from=unzip /opt/raw2ometiff-0.7.0 /opt/raw2ometiff-0.7.0
 
 # Update PATH environment variable
 ENV PATH="/opt/venv/bin:/opt/bioformats2raw-0.9.1/bin:/opt/raw2ometiff-0.7.0/bin:${PATH}"
+ENV OMERO_USERDIR=/tmp
+ENV OMERO_SESSIONDIR=/tmp
+ENV OMERO_TMPDIR=/tmp
 USER 1000
