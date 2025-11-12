@@ -38,10 +38,10 @@ ENV JAVA_TOOL_OPTIONS="-Djava.util.prefs.userRoot=/tmp/.java/.userPrefs"
 USER 1000
 RUN /bin/bash -c 'omero import -s "w" -p 4064 -u fake -w fake; exit 0'
 # Download and install OMERO.java.zip to the correct location
-RUN OMERO_USER_CACHE_DIR=/tmp/.cache/OMERO.py/5/ \
-    && mkdir -p $OMERO_USER_CACHE_DIR/jars \
-    && curl -Lo /tmp/omero.java.zip https://downloads.openmicroscopy.org/omero/5.6.16/artifacts/OMERO.java-5.6.16-ice36.zip \
-    && unzip /tmp/omero.java.zip -d $OMERO_USER_CACHE_DIR/jars \
-    && topdir=$(unzip -l /tmp/omero.java.zip | awk '/\/$/ {print $4}' | head -n 1 | cut -d/ -f1) \
-    && echo "$topdir" > $OMERO_USER_CACHE_DIR/jars/OMERO.java.txt \
-    && rm /tmp/omero.java.zip
+# RUN OMERO_USER_CACHE_DIR=/tmp/.cache/OMERO.py/5/ \
+#     && mkdir -p $OMERO_USER_CACHE_DIR/jars \
+#     && curl -Lo /tmp/omero.java.zip https://downloads.openmicroscopy.org/omero/5.6.16/artifacts/OMERO.java-5.6.16-ice36.zip \
+#     && unzip /tmp/omero.java.zip -d $OMERO_USER_CACHE_DIR/jars \
+#     && topdir=$(unzip -l /tmp/omero.java.zip | awk '/\/$/ {print $4}' | head -n 1 | cut -d/ -f1) \
+#     && echo "$topdir" > $OMERO_USER_CACHE_DIR/jars/OMERO.java.txt \
+#     && rm /tmp/omero.java.zip
