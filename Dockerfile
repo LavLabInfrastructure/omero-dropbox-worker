@@ -34,6 +34,7 @@ COPY --from=unzip /opt/raw2ometiff-0.7.0 /opt/raw2ometiff-0.7.0
 # Update PATH environment variable
 ENV PATH="/opt/venv/bin:/opt/bioformats2raw-0.9.1/bin:/opt/raw2ometiff-0.7.0/bin:${PATH}"
 ENV HOME=/tmp
+ENV JAVA_TOOL_OPTIONS="-Djava.util.prefs.userRoot=/tmp/.java/.userPrefs"
 USER 1000
 RUN /bin/bash -c 'omero import -s "w" -p 4064 -u fake -w fake; exit 0'
 # Download and install OMERO.java.zip to the correct location
